@@ -15,7 +15,6 @@ public class Movement : MonoBehaviour {
     private Rigidbody2D rigidbody2d;
     private CircleCollider2D circlecollider2d;
     private float side;
-
     void Awake() {
         if (defaults) {
             platformsLayerMask = LayerMask.GetMask("Platform");
@@ -32,12 +31,10 @@ public class Movement : MonoBehaviour {
     void FixedUpdate() {
        
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0f, 0f);
-        
-        
+                
         if (onWall() && rigidbody2d.velocity.y < 0) { Physics2D.gravity = new Vector3(0f, -1.962f, 0f); jumps = 1; }
-        //if (wasOnWall()) { jumps = 0; }
         else { Physics2D.gravity = new Vector3(0f, -9.81f, 0f); }
-        if ((Input.GetKeyDown(KeyCode.Space) && (isGrounded() || canJump())) && rigidbody2d.velocity.y <= secondJumpVelocity) {
+        if ((Input.GetKeyDown(KeyCode.Space) && (isGrounded() || canJump())) /*&& rigidbody2d.velocity.y <= secondJumpVelocity*/) {
                    
             if (isGrounded()) { jumpVelocity = firstJumpVelocity; }
             else { jumpVelocity = secondJumpVelocity; }
@@ -51,37 +48,19 @@ public class Movement : MonoBehaviour {
         if (isGrounded()) { jumps = 1; }
         
     transform.position += movement * Time.deltaTime * moveSpeed;
-        //Debug.DrawRay(circlecollider2d.bounds.center, Vector2.down, Color.red);
     }
-
     private bool isGrounded() {
-        //RaycastHit2D sray = Physics2D.BoxCast(circlecollider2d.bounds.center, circlecollider2d.bounds.size,0f, Vector2.down, .1f, platformslayermask);
-        RaycastHit2D dray = Physics2D.CircleCast(circlecollider2d.bounds.center, .5f, Vector2.down, .1f, platformsLayerMask);
-        Debug.Log(dray.collider);
-        return dray.collider != null;
+        return Physics2D.IsTouchingLayers(circlecollider2d, LayerMask.GetMask("Platform"));
     }
     private bool canJump() {
         if (jumps == 0) { return false; }
         else { return true; }
     }
     private bool onWall() {
-        RaycastHit2D lray = Physics2D.CircleCast(circlecollider2d.bounds.center, .5f, Vector2.left, .1f, wallsLayerMask);
-        RaycastHit2D rray = Physics2D.CircleCast(circlecollider2d.bounds.center, .5f, Vector2.right, .1f, wallsLayerMask);
-        Debug.Log(lray.collider);
-        Debug.Log(rray.collider);
-        if (lray.collider != null) { side = 1f; }
-        if (rray.collider != null) { side = -1f; }
-        if (lray.collider == null && rray.collider == null) { side = 0f; }
-        return (lray.collider != null || rray.collider != null);
+        if (Physics2D.IsTouchingLayers(circlecollider2d, LayerMask.GetMask("Left Wall"))) { side = 1f; }
+        else if (Physics2D.IsTouchingLayers(circlecollider2d, LayerMask.GetMask("Right Wall"))) { side = -1f; }
+        else { side = 0f; }
+        return Physics2D.IsTouchingLayers(circlecollider2d, LayerMask.GetMask("Left Wall")) || Physics2D.IsTouchingLayers(circlecollider2d, LayerMask.GetMask("Right Wall"));
     }
-    //private bool wasOnWall()
-    //{
-    //    bool touched = false;
-    //    bool x = false;
-    //    if (onWall()) { touched = true; }
-    //    if (isGrounded() && !onWall()) { touched = false; }
-    //    x = touched;
-    //    if (onWall()) { x = false; }
-    //    return x;
-    //}
+
 }

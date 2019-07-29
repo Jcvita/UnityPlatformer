@@ -294,8 +294,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 862464432}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.367, y: -4.51, z: 0}
-  m_LocalScale: {x: 6.5846853, y: 1, z: 1}
+  m_LocalPosition: {x: -1.373, y: -4.51, z: 0}
+  m_LocalScale: {x: 10.067985, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -311,7 +311,7 @@ GameObject:
   - component: {fileID: 1106960089}
   - component: {fileID: 1106960088}
   - component: {fileID: 1106960090}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: RightWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -551,7 +551,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!58 &1699813982
 CircleCollider2D:
@@ -625,7 +625,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1699813980}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: -1.7, z: 0}
+  m_LocalPosition: {x: -0.073, y: -1.447, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 519420032}
@@ -650,7 +650,7 @@ MonoBehaviour:
   wallsLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  moveSpeed: 5
+  moveSpeed: 10
   jumps: 1
   firstJumpVelocity: 15
   secondJumpVelocity: 10
